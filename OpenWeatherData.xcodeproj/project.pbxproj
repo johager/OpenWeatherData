@@ -9,21 +9,32 @@
 /* Begin PBXBuildFile section */
 		F8624EF827FE3D2E003CFD15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8624EF727FE3D2E003CFD15 /* AppDelegate.swift */; };
 		F8624EFA27FE3D2E003CFD15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8624EF927FE3D2E003CFD15 /* SceneDelegate.swift */; };
-		F8624EFC27FE3D2E003CFD15 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8624EFB27FE3D2E003CFD15 /* ViewController.swift */; };
 		F8624EFF27FE3D2E003CFD15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8624EFD27FE3D2E003CFD15 /* Main.storyboard */; };
 		F8624F0127FE3D2F003CFD15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8624F0027FE3D2F003CFD15 /* Assets.xcassets */; };
 		F8624F0427FE3D2F003CFD15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8624F0227FE3D2F003CFD15 /* LaunchScreen.storyboard */; };
+		F8624F1027FE3F4C003CFD15 /* OpenWeather-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F8624F0F27FE3F4C003CFD15 /* OpenWeather-Info.plist */; };
+		F8624F1427FE4049003CFD15 /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8624F1327FE4049003CFD15 /* ForecastViewController.swift */; };
+		F8624F1827FE4196003CFD15 /* WeatherDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8624F1727FE4196003CFD15 /* WeatherDataController.swift */; };
+		F8624F1A27FE4973003CFD15 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8624F1927FE4973003CFD15 /* WeatherData.swift */; };
+		F8624F1C27FE51CD003CFD15 /* WeatherDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8624F1B27FE51CD003CFD15 /* WeatherDataError.swift */; };
+		F8D4903A27FE5B1C00DEF9C6 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D4903927FE5B1C00DEF9C6 /* RequestType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F8624EF427FE3D2E003CFD15 /* OpenWeatherData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenWeatherData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8624EF727FE3D2E003CFD15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8624EF927FE3D2E003CFD15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F8624EFB27FE3D2E003CFD15 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F8624EFE27FE3D2E003CFD15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F8624F0027FE3D2F003CFD15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8624F0327FE3D2F003CFD15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F8624F0527FE3D2F003CFD15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8624F0F27FE3F4C003CFD15 /* OpenWeather-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OpenWeather-Info.plist"; sourceTree = "<group>"; };
+		F8624F1127FE3F60003CFD15 /* OpenWeather-Info-Sample.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OpenWeather-Info-Sample.plist"; sourceTree = "<group>"; };
+		F8624F1327FE4049003CFD15 /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
+		F8624F1727FE4196003CFD15 /* WeatherDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataController.swift; sourceTree = "<group>"; };
+		F8624F1927FE4973003CFD15 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		F8624F1B27FE51CD003CFD15 /* WeatherDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataError.swift; sourceTree = "<group>"; };
+		F8D4903927FE5B1C00DEF9C6 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +67,53 @@
 		F8624EF627FE3D2E003CFD15 /* OpenWeatherData */ = {
 			isa = PBXGroup;
 			children = (
-				F8624EF727FE3D2E003CFD15 /* AppDelegate.swift */,
-				F8624EF927FE3D2E003CFD15 /* SceneDelegate.swift */,
-				F8624EFB27FE3D2E003CFD15 /* ViewController.swift */,
-				F8624EFD27FE3D2E003CFD15 /* Main.storyboard */,
-				F8624F0027FE3D2F003CFD15 /* Assets.xcassets */,
-				F8624F0227FE3D2F003CFD15 /* LaunchScreen.storyboard */,
-				F8624F0527FE3D2F003CFD15 /* Info.plist */,
+				F8624F0C27FE3E9A003CFD15 /* Model & Controllers */,
+				F8624F1527FE4144003CFD15 /* Views */,
+				F8624F1627FE4152003CFD15 /* ViewControllers */,
+				F8624F0B27FE3E92003CFD15 /* Resources */,
 			);
 			path = OpenWeatherData;
+			sourceTree = "<group>";
+		};
+		F8624F0B27FE3E92003CFD15 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F8624EF727FE3D2E003CFD15 /* AppDelegate.swift */,
+				F8624EF927FE3D2E003CFD15 /* SceneDelegate.swift */,
+				F8624F0027FE3D2F003CFD15 /* Assets.xcassets */,
+				F8624EFD27FE3D2E003CFD15 /* Main.storyboard */,
+				F8624F0227FE3D2F003CFD15 /* LaunchScreen.storyboard */,
+				F8624F0527FE3D2F003CFD15 /* Info.plist */,
+				F8624F0F27FE3F4C003CFD15 /* OpenWeather-Info.plist */,
+				F8624F1127FE3F60003CFD15 /* OpenWeather-Info-Sample.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F8624F0C27FE3E9A003CFD15 /* Model & Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F8D4903927FE5B1C00DEF9C6 /* RequestType.swift */,
+				F8624F1927FE4973003CFD15 /* WeatherData.swift */,
+				F8624F1727FE4196003CFD15 /* WeatherDataController.swift */,
+				F8624F1B27FE51CD003CFD15 /* WeatherDataError.swift */,
+			);
+			path = "Model & Controllers";
+			sourceTree = "<group>";
+		};
+		F8624F1527FE4144003CFD15 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F8624F1627FE4152003CFD15 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F8624F1327FE4049003CFD15 /* ForecastViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +123,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8624F0827FE3D2F003CFD15 /* Build configuration list for PBXNativeTarget "OpenWeatherData" */;
 			buildPhases = (
+				F8624F1227FE3F73003CFD15 /* Copy Sample OpenWeather-Info Plist */,
 				F8624EF027FE3D2E003CFD15 /* Sources */,
 				F8624EF127FE3D2E003CFD15 /* Frameworks */,
 				F8624EF227FE3D2E003CFD15 /* Resources */,
@@ -128,19 +178,45 @@
 				F8624F0427FE3D2F003CFD15 /* LaunchScreen.storyboard in Resources */,
 				F8624F0127FE3D2F003CFD15 /* Assets.xcassets in Resources */,
 				F8624EFF27FE3D2E003CFD15 /* Main.storyboard in Resources */,
+				F8624F1027FE3F4C003CFD15 /* OpenWeather-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F8624F1227FE3F73003CFD15 /* Copy Sample OpenWeather-Info Plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Sample OpenWeather-Info Plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "CONFIG_FILE_BASE_NAME=\"OpenWeather-Info\"\n\nCONFIG_FILE_NAME=${CONFIG_FILE_BASE_NAME}.plist\nSAMPLE_CONFIG_FILE_NAME=${CONFIG_FILE_BASE_NAME}-Sample.plist\n\nCONFIG_FILE_PATH=$SRCROOT/$PRODUCT_NAME/Resources/$CONFIG_FILE_NAME\nSAMPLE_CONFIG_FILE_PATH=$SRCROOT/$PRODUCT_NAME/Resources/$SAMPLE_CONFIG_FILE_NAME\n\nif [ -f \"$CONFIG_FILE_PATH\" ]; then\n  echo \"$CONFIG_FILE_PATH exists.\"\nelse\n  echo \"$CONFIG_FILE_PATH does not exist, copying sample\"\n  cp -v \"${SAMPLE_CONFIG_FILE_PATH}\" \"${CONFIG_FILE_PATH}\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F8624EF027FE3D2E003CFD15 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8624EFC27FE3D2E003CFD15 /* ViewController.swift in Sources */,
+				F8624F1827FE4196003CFD15 /* WeatherDataController.swift in Sources */,
+				F8624F1C27FE51CD003CFD15 /* WeatherDataError.swift in Sources */,
+				F8D4903A27FE5B1C00DEF9C6 /* RequestType.swift in Sources */,
+				F8624F1A27FE4973003CFD15 /* WeatherData.swift in Sources */,
 				F8624EF827FE3D2E003CFD15 /* AppDelegate.swift in Sources */,
 				F8624EFA27FE3D2E003CFD15 /* SceneDelegate.swift in Sources */,
+				F8624F1427FE4049003CFD15 /* ForecastViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,7 +365,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 37H8X6K6NN;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = OpenWeatherData/Info.plist;
+				INFOPLIST_FILE = OpenWeatherData/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -299,7 +375,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AvantiApplications.OpenWeatherData;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -317,7 +393,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 37H8X6K6NN;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = OpenWeatherData/Info.plist;
+				INFOPLIST_FILE = OpenWeatherData/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -327,7 +403,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AvantiApplications.OpenWeatherData;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
