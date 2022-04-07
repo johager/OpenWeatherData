@@ -17,11 +17,14 @@ struct Current: Decodable {
     let dt: Int
     let temp: Float
     let feelsLike: Float
+    let pressure: Float
     let humidity: Int
     let dewPoint: Float
     let windSpeed: Float
     let windDeg: Int
     let windGust: Float?
+    let clouds: Float
+    let uvi: Float
     let weatherArray: [Weather]
     
     var date: Date { Date(timeIntervalSince1970: Double(dt))}
@@ -31,11 +34,14 @@ struct Current: Decodable {
         case dt
         case temp
         case feelsLike = "feels_like"
+        case pressure
         case humidity
         case dewPoint = "dew_point"
         case windSpeed = "wind_speed"
         case windDeg = "wind_deg"
         case windGust = "wind_gust"
+        case clouds
+        case uvi
         case weatherArray = "weather"
     }
 }
@@ -51,10 +57,10 @@ struct Day: Decodable {
     let windSpeed: Float
     let windDeg: Int
     let windGust: Float?
-    let weatherArray: [Weather]
     let clouds: Int
-    let pop: Float
     let uvi: Float
+    let pop: Float
+    let weatherArray: [Weather]
     
     enum CodingKeys: String, CodingKey {
         case dt
@@ -67,10 +73,10 @@ struct Day: Decodable {
         case windSpeed = "wind_speed"
         case windDeg = "wind_deg"
         case windGust = "wind_gust"
-        case weatherArray = "weather"
         case clouds
-        case pop
         case uvi
+        case pop
+        case weatherArray = "weather"
     }
 }
 

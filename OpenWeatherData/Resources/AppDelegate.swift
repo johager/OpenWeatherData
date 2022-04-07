@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        customizeAppearance()
         return true
     }
 
@@ -31,6 +31,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    // MARK: - Misc Methods
+    
+    func customizeAppearance() {
+        
+        UINavigationBar.appearance().tintColor = Colors.textSelectable
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = Colors.background
+        appearance.shadowColor = UIColor.clear
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
 
+        UITableView.appearance().sectionHeaderTopPadding = 0
+        
+        UITableView.appearance().separatorColor = Colors.tableViewSeparatorColor
+        let selectionView = UIView()
+        selectionView.backgroundColor = Colors.tableViewSelectedBackgroundColor
+        UITableViewCell.appearance().selectedBackgroundView = selectionView
+    }
 }
-
