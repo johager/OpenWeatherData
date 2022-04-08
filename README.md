@@ -8,6 +8,8 @@ The views are created programmatically: Interface Builder isn't used.
 
 A custom URLSessionConfiguration is used to force weather data to always be downloaded instead of being read from cache.
 
+The API key is stored in a .plist file that is not included in the repo. A sample.plist file is included in the repo, but not the build target, and is coied to the required .plist file using a build phase _run script_ if it doesn't exist. (This approach is modeled after https://peterfriese.dev/posts/reading-api-keys-from-plist-files/.)
+
 ### Technoloy
 
 Swift, UIKit, CoreLocation, URLSession
