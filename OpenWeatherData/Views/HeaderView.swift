@@ -18,6 +18,11 @@ class HeaderView: UITableViewHeaderFooterView {
     
     func setUpView() {
         guard titleLabel == nil else { return }
+        
+        var backgroundConfig = UIBackgroundConfiguration.listPlainHeaderFooter()
+        backgroundConfig.backgroundColor = Colors.background
+        backgroundConfiguration = backgroundConfig
+        
         contentView.backgroundColor = Colors.headerBackground
         
         titleLabel = UILabel()

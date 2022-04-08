@@ -18,7 +18,8 @@ class ForecastViewController: UITableViewController {
     var current: Current { weatherData.current }
     var daily: [Day] { weatherData.daily }
     
-    enum CellIdentifier {
+    enum Identifier {
+        static let header = "headerView"
         static let current = "currentCell"
         static let day = "dayCell"
     }
@@ -39,8 +40,10 @@ class ForecastViewController: UITableViewController {
     // MARK: - View Methods
     
     func setUpViews() {
-        tableView.register(CurrentCell.self, forCellReuseIdentifier: CellIdentifier.current)
-        tableView.separatorColor = .clear
+        tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: Identifier.header)
+        tableView.register(CurrentCell.self, forCellReuseIdentifier: Identifier.current)
+        tableView.register(DayCell.self, forCellReuseIdentifier: Identifier.day)
+        
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
     }
@@ -194,15 +197,13 @@ class ForecastViewController: UITableViewController {
 extension ForecastViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        print(#function)
         if weatherData == nil {
             return 0
         }
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("\(#function) - section: \(section)")
         if section == 0 {
             return 1
         } else {
@@ -211,15 +212,17 @@ extension ForecastViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("\(#function) - indexPath: \(indexPath)")
         if indexPath.section == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.current, for: indexPath) as? CurrentCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.current, for: indexPath) as? CurrentCell
             else { return UITableViewCell() }
             cell.configure(with: current, timezone: weatherData.timezone)
             return cell
             
         } else {
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.day, for: indexPath) as? DayCell
+            else { return UITableViewCell() }
+            cell.configure(with: daily[indexPath.row], timezone: weatherData.timezone)
+            return cell
         }
     }
 }
@@ -229,12 +232,15 @@ extension ForecastViewController {
 extension ForecastViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = HeaderView()
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Identifier.header) as? HeaderView
+        else { return nil }
+        
         if section == 0 {
             headerView.configure(withTitle: "Current Conditions")
         } else {
             headerView.configure(withTitle: "Forecast")
         }
+        
         return headerView
     }
 }

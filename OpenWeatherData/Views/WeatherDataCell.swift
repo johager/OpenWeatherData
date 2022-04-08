@@ -13,6 +13,9 @@ class WeatherDataCell: UITableViewCell {
     
     var dateLabel: UILabel!
     var stackView: UIStackView!
+    var mainLabel: UILabel!  // weather text like "Clear"
+    var tempLabel: UILabel!
+    var iconImageView: UIImageView!
     var dataLabels: [DataKey: UILabel]!
     
     // MARK: - Properties
@@ -20,10 +23,13 @@ class WeatherDataCell: UITableViewCell {
     var dataKeys = [DataKey]()
     
     // MARK: - View Methods
-
+    
     func setUpViews() {
-        print(#function)
-        guard stackView == nil else { return }
+        guard stackView == nil
+        else {
+            iconImageView.image = nil
+            return
+        }
         
         selectionStyle = .none
         
@@ -44,6 +50,10 @@ class WeatherDataCell: UITableViewCell {
         setUpDataKeys()
         
         setUpStackView()
+        
+        iconImageView = UIImageView()
+        contentView.addSubview(iconImageView)
+        iconImageView.pin(top: tempLabel.bottomAnchor, trailing: contentLayoutMargins.trailingAnchor, bottom: nil, leading: nil, margin: [4, -4, 0, 0])
     }
     
     // override
@@ -51,17 +61,38 @@ class WeatherDataCell: UITableViewCell {
     }
     
     func setUpStackView() {
-        print(#function)
+        addMainAndTempLabels()
+        
         dataLabels = [DataKey: UILabel]()
         for dataKey in dataKeys {
             addDataStackView(forDataKey: dataKey, dataLabels: &dataLabels)
         }
     }
     
+    func addMainAndTempLabels() {
+        let topStackView = UIStackView()
+        topStackView.axis = .horizontal
+        topStackView.distribution = .equalSpacing
+        topStackView.spacing = 4
+        
+        mainLabel = label(textStyle: .headline)
+        
+        tempLabel = label(textStyle: .headline)
+        tempLabel.textAlignment = .center
+        tempLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        topStackView.addArrangedSubview(mainLabel)
+        topStackView.addArrangedSubview(tempLabel)
+        
+        stackView.addArrangedSubview(topStackView)
+        
+        topStackView.pin(top: nil, trailing: stackView.trailingAnchor, bottom: nil, leading: stackView.leadingAnchor, margin: [0, -4, 0, 0])
+    }
+    
     func addDataStackView(forDataKey dataKey: DataKey, dataLabels: inout [DataKey: UILabel]) {
-        print("\(#function) - dataKey: \(dataKey)")
         let dataStackView = UIStackView()
         dataStackView.axis = .horizontal
+        dataStackView.alignment = .firstBaseline
         dataStackView.spacing = 4
         
         let descLabel = label(withText: dataKey.description)
@@ -90,22 +121,70 @@ class WeatherDataCell: UITableViewCell {
         return label
     }
     
+    // MARK: - Get and Set iconImage
+    
+    func fetchIconImage(for icon: String?) {
+        guard let icon = icon else { return }
+        
+        WeatherDataController().fetchIcon(iconID: icon) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let iconImage):
+                    self.iconImageView.image = iconImage
+                case .failure(let error):
+                    print("\(#function) error: \(error)")
+                }
+            }
+        }
+    }
+    
     // MARK: - Misc Methods
     
     func string(fromFloat float: Float, withDecimals: Bool = false) -> String {
         if withDecimals {
             return String(format: "%.2f", float)
         } else {
-            return String(float.rounded())
+            return String(Int(round(float)))
         }
     }
     
-    func string(fromDt dt: Int, timezone: String) -> String {
-        let date = Date(timeIntervalSince1970: Double(dt))
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        dateFormatter.timeZone = TimeZone(identifier: timezone)
-        return dateFormatter.string(from: date)
+    func windText(windSpeed: Float, windDeg: Int, windGust: Float?) -> String {
+        let windDirText = compassDirText(from: windDeg)
+        let windSpeedText = string(fromFloat: windSpeed)
+        var windText = "\(windDirText) at \(windSpeedText)\u{00a0}mph"
+        
+        // only show gusts if greater than 5 over windSpeed
+        if let windGust = windGust, Int(round(windGust)) - Int(round(windSpeed)) > 5 {
+            windText += "\ngusting to \(string(fromFloat: windGust))\u{00a0}mph"
+        }
+        
+        return windText
+    }
+    
+    func compassDirText(from dirIntIn: Int, makePos: Bool = false) -> String {
+        var dirInt = dirIntIn
+        if makePos && dirInt < 0 {
+            dirInt += 360
+        }
+        switch dirInt {
+        case 350...360, 0...11: return "N"
+        case 12...33: return "NNE"
+        case 34...56: return "NE"
+        case 57...79: return "ENE"
+        case 80...101: return "E"
+        case 102...124: return "ESE"
+        case 125...146: return "SE"
+        case 147...169: return "SSE"
+        case 170...191: return "S"
+        case 192...214: return "SSW"
+        case 215...236: return "SW"
+        case 237...259: return "WSW"
+        case 260...281: return "NW"
+        case 282...304: return "WNW"
+        case 305...326: return "NW"
+        case 327...349: return "NNW"
+        case -10, 999: return "Variable"
+        default: return "Unknown"
+        }
     }
 }

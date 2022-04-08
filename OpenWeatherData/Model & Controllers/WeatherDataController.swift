@@ -11,13 +11,17 @@
 //
 
 import Foundation
+import UIKit
 
 class WeatherDataController {
     
-    // https://api.openweathermap.org/data/2.5/onecall?lat=35.342&lon=-106.453&exclude=minutely&units=imperial&appid=08b4c56524f9f8eab8bab79d245c0c35
+    // https://api.openweathermap.org/data/2.5/onecall?lat=[latitude]&lon=[longitude]&exclude=minutely&units=imperial&appid=[ApiKey]
+    // https://openweathermap.org/img/wn/10d@2x.png
     
-    private let baseURL = URL(string: "https://api.openweathermap.org")
+    private let apiBaseURL = URL(string: "https://api.openweathermap.org")
     private let onecallEndpoint = "data/2.5/onecall"
+    
+    private let iconBaseURL = URL(string: "https://openweathermap.org/img/wn")
     
     private lazy var apiKey: String = {
         let fileName = "OpenWeather-Info"
@@ -50,13 +54,14 @@ class WeatherDataController {
     func fetchWeatherData(lat: Double, lon: Double, completion: @escaping (Result<WeatherData, WeatherDataError>) -> Void) {
         let requestType: RequestType = .weatherData
         
-        guard var url = baseURL else { return completion(.failure(.invalidURL(requestType))) }
+        guard var url = apiBaseURL else { return completion(.failure(.invalidURL(requestType))) }
         
         url.appendPathComponent(onecallEndpoint)
         
         let queryItems = [
             "lat": "\(lat)",
             "lon": "\(lon)",
+            "exclude": "minutely,hourly",
             "units": "imperial",
             "appid": apiKey
         ]
@@ -85,8 +90,38 @@ class WeatherDataController {
                 let weatherData = try JSONDecoder().decode(WeatherData.self, from: data)
                 completion(.success(weatherData))
             } catch {
+                print("\(requestType) data decode error: \(error), \(error.localizedDescription)")
                 completion(.failure(.unableToDecodeWeatherData(error)))
             }
+        }.resume()
+    }
+    
+    func fetchIcon(iconID: String, completion: @escaping (Result<UIImage, WeatherDataError>) -> Void) {
+        let requestType: RequestType = .icon
+        
+        guard var url = iconBaseURL else { return completion(.failure(.invalidURL(requestType))) }
+        
+        let iconFileName = "\(iconID)@2x.png"
+        url.appendPathComponent(iconFileName)
+        
+        print("fetchIcon URL: \(url)")
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                return completion(.failure(.urlSessionError(.weatherData, error)))
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                if response.statusCode != 200 {
+                    return completion(.failure(.httpResponseStatusCode(requestType, response.statusCode)))
+                }
+            }
+            
+            guard let data = data else { return completion(.failure(.noData(requestType))) }
+            
+            guard let iconImage = UIImage(data: data) else { return completion(.failure(.unableToDecodeIcon)) }
+            
+            completion(.success(iconImage))
         }.resume()
     }
 }

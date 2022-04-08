@@ -17,6 +17,8 @@ enum DataKey: String, CustomStringConvertible {
     case clouds = "Clouds:"
     case uvi = "UV Index:"
     case pop = "Prob of Precip:"
+    case sunrise = "Sunrise:"
+    case sunset = "Sunset:"
     
     var description: String { rawValue }
 }
