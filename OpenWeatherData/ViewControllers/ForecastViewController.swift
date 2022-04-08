@@ -13,6 +13,8 @@ class ForecastViewController: UITableViewController {
     let weatherDataController = WeatherDataController()
     
     var locationName = ""
+    var lat: Double!
+    var lon: Double!
     var weatherData: WeatherData!
     
     var current: Current { weatherData.current }
@@ -28,6 +30,7 @@ class ForecastViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpNav()
         setUpViews()
     }
     
@@ -38,6 +41,15 @@ class ForecastViewController: UITableViewController {
     }
     
     // MARK: - View Methods
+    
+    func setUpNav() {
+        
+        let editBarButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(handleEditButtonTapped))
+        navigationItem.setLeftBarButton(editBarButton, animated: false)
+        
+        let refreshBarButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(handleRefreshButtonTapped))
+        navigationItem.setRightBarButton(refreshBarButton, animated: false)
+    }
     
     func setUpViews() {
         tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: Identifier.header)
@@ -60,6 +72,8 @@ class ForecastViewController: UITableViewController {
                 switch result {
                 case .success(let weatherData):
                     self.locationName = name
+                    self.lat = lat
+                    self.lon = lon
                     self.weatherData = weatherData
                     self.updateViews()
                     print(weatherData)
@@ -187,8 +201,18 @@ class ForecastViewController: UITableViewController {
     
     // MARK: - Actions
     
-    @IBAction func setLocationButtonTapped(_ sender: UIBarButtonItem) {
+    @objc func handleEditButtonTapped() {
         presentAddLocationAlert()
+    }
+    
+    @objc func handleRefreshButtonTapped() {
+        print(#function)
+        guard !locationName.isEmpty,
+              let lat = lat,
+              let lon = lon
+        else { return }
+        
+        getWeather(lat: lat, lon: lon, name: locationName)
     }
 }
 

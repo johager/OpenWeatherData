@@ -22,11 +22,11 @@ class DayCell: WeatherDataCell {
         
         let maxTemp = string(fromFloat: day.temp.max)
         let minTemp = string(fromFloat: day.temp.min)
-        tempLabel.text = "\(maxTemp)/\(minTemp)°F"
+        tempLabel.text = "\(maxTemp) / \(minTemp)°F"
         
         let dayTemp = string(fromFloat: day.feelsLike.day)
         let nightTemp = string(fromFloat: day.feelsLike.night)
-        dataLabels[.feelsLike]?.text = "\(dayTemp)/\(nightTemp)°F"
+        dataLabels[.feelsLike]?.text = "\(dayTemp) / \(nightTemp)°F"
         let presInHg = day.pressure / 1000 * 29.53
         dataLabels[.pressure]?.text = "\(string(fromFloat: presInHg, withDecimals: true))\u{00a0}inHg"
         dataLabels[.humidity]?.text = "\(day.humidity)%"

@@ -73,7 +73,11 @@ class WeatherDataController {
         
         print("fetchWeatherData URL: \(fullURL)")
         
-        URLSession.shared.dataTask(with: fullURL) { data, response, error in
+        let urlSessionConfig = URLSessionConfiguration.default
+        urlSessionConfig.requestCachePolicy = .reloadIgnoringLocalCacheData  // force a new request each time
+        urlSessionConfig.timeoutIntervalForRequest = 30  // 30 seconds instead of the default 60 seconds
+        
+        URLSession(configuration: urlSessionConfig).dataTask(with: fullURL) { data, response, error in
             if let error = error {
                 return completion(.failure(.urlSessionError(.weatherData, error)))
             }
