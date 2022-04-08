@@ -66,7 +66,6 @@ class ForecastViewController: UITableViewController {
     }
     
     func getWeather(lat: Double, lon: Double, name: String) {
-        print("\(#function) - lat, lon: \(lat), \(lon)")
         weatherDataController.fetchWeatherData(lat: lat, lon: lon) { result in
             DispatchQueue.main.async {
                 switch result {
@@ -76,7 +75,7 @@ class ForecastViewController: UITableViewController {
                     self.lon = lon
                     self.weatherData = weatherData
                     self.updateViews()
-                    print(weatherData)
+                    //print(weatherData)
                 case .failure(let error):
                     self.presentErrorAlert(for: error)
                 }
@@ -206,7 +205,6 @@ class ForecastViewController: UITableViewController {
     }
     
     @objc func handleRefreshButtonTapped() {
-        print(#function)
         guard !locationName.isEmpty,
               let lat = lat,
               let lon = lon
